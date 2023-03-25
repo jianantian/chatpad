@@ -54,15 +54,15 @@ export function SettingsModal({ children }: { children: ReactElement }) {
                   console.log(apiKey);
                 });
                 notifications.show({
-                  title: "Saved",
-                  message: "Your OpenAI Key has been saved.",
+                  title: "已保存",
+                  message: "你的 OpenAI Key 已经保存.",
                 });
               } catch (error: any) {
                 if (error.toJSON().message === "Network Error") {
                   notifications.show({
                     title: "Error",
                     color: "red",
-                    message: "No internet connection.",
+                    message: "网络连接错误.",
                   });
                 }
                 const message = error.response?.data?.error?.message;
@@ -81,7 +81,7 @@ export function SettingsModal({ children }: { children: ReactElement }) {
             <Flex gap="xs" align="end">
               <PasswordInput
                 label="OpenAI API Key"
-                placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                placeholder="如果你没有可以输入任意字符，比如 help"
                 sx={{ flex: 1 }}
                 value={value}
                 onChange={(event) => setValue(event.currentTarget.value)}

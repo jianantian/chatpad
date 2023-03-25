@@ -143,7 +143,8 @@ export function Layout() {
                     navigate({ to: `/chats/${id}` });
                   }}
                 >
-                  New Chat
+                  {/* New Chat */}
+                  新对话
                 </Button>
               )}
               {tab === "Prompts" && <CreatePromptModal />}
@@ -215,7 +216,7 @@ export function Layout() {
                   </ActionIcon>
                 </Tooltip>
               </DatabaseModal>
-              <Tooltip label="Source Code">
+              {/* <Tooltip label="Source Code">
                 <ActionIcon
                   component="a"
                   href="https://github.com/deiucanta/chatpad"
@@ -225,8 +226,8 @@ export function Layout() {
                 >
                   <IconBrandGithub size={20} />
                 </ActionIcon>
-              </Tooltip>
-              <Tooltip label="Follow on Twitter">
+              </Tooltip> */}
+              {/* <Tooltip label="Follow on Twitter">
                 <ActionIcon
                   component="a"
                   href="https://twitter.com/deiucanta"
@@ -236,8 +237,8 @@ export function Layout() {
                 >
                   <IconBrandTwitter size={20} />
                 </ActionIcon>
-              </Tooltip>
-              <Tooltip label="Give Feedback">
+              </Tooltip> */}
+              {/* <Tooltip label="Give Feedback">
                 <ActionIcon
                   component="a"
                   href="https://feedback.chatpad.ai"
@@ -255,7 +256,7 @@ export function Layout() {
                 >
                   <IconMessage size={20} />
                 </ActionIcon>
-              </Tooltip>
+              </Tooltip> */}
             </Center>
           </Navbar.Section>
         </Navbar>

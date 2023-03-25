@@ -28,12 +28,12 @@ export function IndexRoute() {
     <>
       <Center py="xl" sx={{ height: "100%" }}>
         <Container size="sm">
-          <Badge mb="lg">GPT-4 Ready</Badge>
+          <Badge mb="lg">我认出风暴而激动如大海</Badge>
           <Text>
             <Logo style={{ maxWidth: 240 }} />
           </Text>
           <Text mt={4} size="xl">
-            Not just another ChatGPT user-interface!
+            Just another ChatGPT user-interface!
           </Text>
           <SimpleGrid
             mt={50}
@@ -62,10 +62,10 @@ export function IndexRoute() {
                 variant={openAiApiKey ? "light" : "filled"}
                 leftIcon={<IconKey size={20} />}
               >
-                {openAiApiKey ? "Change OpenAI Key" : "Enter OpenAI Key"}
+                {openAiApiKey ? "修改 OpenAI Key" : "请输入你的 OpenAI Key"}
               </Button>
             </SettingsModal>
-            {!window.todesktop && (
+            {/* {!window.todesktop && (
               <Button
                 component="a"
                 href="https://dl.todesktop.com/230313oyppkw40a"
@@ -76,7 +76,7 @@ export function IndexRoute() {
               >
                 Download Desktop App
               </Button>
-            )}
+            )} */}
           </Group>
         </Container>
       </Center>
@@ -87,20 +87,28 @@ export function IndexRoute() {
 const features = [
   {
     icon: IconCurrencyDollar,
-    title: "Free and open source",
-    description:
-      "This app is provided for free and the source code is available on GitHub.",
+    // title: "Free and open source",
+    // description:
+    //   "This app is provided for free and the source code is available on GitHub.",
+    title: "免费并开源",
+    description: "这个应用程序完全免费提供的, 源代码可在GitHub上找到."
   },
   {
     icon: IconLock,
-    title: "Privacy focused",
+    // title: "Privacy focused",
+    // description:
+    //   "No tracking, no cookies, no bullshit. All your data is stored locally.",
+    title: "注重隐私",
     description:
-      "No tracking, no cookies, no bullshit. All your data is stored locally.",
+      "不跟踪, 不使用 Cookie, 没有广告, 也不需要你为我买一杯啤酒, 你的所有数据都保存在本地.",
   },
   {
     icon: IconNorthStar,
-    title: "Best experience",
+    // title: "Best experience",
+    // description:
+    //   "Crafted with love and care to provide the best experience possible.",
+    title: "最佳的体验",
     description:
-      "Crafted with love and care to provide the best experience possible.",
+      "精心设计，以提供最佳的使用体验.",
   },
 ];

@@ -102,21 +102,30 @@ export function Prompts({
                   navigate({ to: `/chats/${id}` });
                   onPlay();
 
-                  const result = await createChatCompletion(apiKey, [
-                    {
-                      role: "system",
-                      content:
-                        "You are ChatGPT, a large language model trained by OpenAI.",
-                    },
-                    { role: "user", content: prompt.content },
-                  ]);
+                //   const result = await createChatCompletion(apiKey, [
+                //     {
+                //       role: "system",
+                //       content:
+                //         "You are ChatGPT, a large language model trained by OpenAI.",
+                //     },
+                //     { role: "user", content: prompt.content },
+                //   ]);
+
+                const result = await createChatCompletion(apiKey, [
+                        {
+                          role: "system",
+                          content:
+                            "You are ChatGPT, a large language model trained by OpenAI.",
+                        },
+                        { role: "user", content: prompt.content },
+                      ]);
 
                   const resultDescription =
                     result.data.choices[0].message?.content;
                   await db.messages.add({
                     id: nanoid(),
                     chatId: id,
-                    content: resultDescription ?? "unknown reponse",
+                    content: resultDescription ?? "unknown response",
                     role: "assistant",
                     createdAt: new Date(),
                   });

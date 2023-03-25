@@ -58,7 +58,8 @@ export function ChatRoute() {
     if (writingFormat) message.push(writingFormat);
     if (message.length === 0)
       message.push(
-        "You are ChatGPT, a large language model trained by OpenAI."
+        // "You are ChatGPT, a large language model trained by OpenAI."
+        "你是 Multivac, 一个大语言模型."
       );
     return message.join(" ");
   };
@@ -108,13 +109,13 @@ export function ChatRoute() {
         { role: "user", content },
       ]);
 
-      const assistantMessage = result.data.choices[0].message?.content;
-      if (result.data.usage) {
+      const assistantMessage = result.choices[0].message?.content;
+      if (result.usage) {
         await db.chats.where({ id: chatId }).modify((chat) => {
           if (chat.totalTokens) {
-            chat.totalTokens += result.data.usage!.total_tokens;
+            chat.totalTokens += result.usage!.total_tokens;
           } else {
-            chat.totalTokens = result.data.usage!.total_tokens;
+            chat.totalTokens = result.usage!.total_tokens;
           }
         });
       }
@@ -123,7 +124,7 @@ export function ChatRoute() {
       await db.messages.add({
         id: nanoid(),
         chatId,
-        content: assistantMessage ?? "unknown reponse",
+        content: assistantMessage ?? "unknown response",
         role: "assistant",
         createdAt: new Date(),
       });
@@ -148,15 +149,15 @@ export function ChatRoute() {
           },
         ]);
         const chatDescription =
-          createChatDescription.data.choices[0].message?.content;
+          createChatDescription.choices[0].message?.content;
 
-        if (createChatDescription.data.usage) {
+        if (createChatDescription.usage) {
           await db.chats.where({ id: chatId }).modify((chat) => {
             chat.description = chatDescription ?? "New Chat";
             if (chat.totalTokens) {
-              chat.totalTokens += createChatDescription.data.usage!.total_tokens;
+              chat.totalTokens += createChatDescription.usage!.total_tokens;
             } else {
-              chat.totalTokens = createChatDescription.data.usage!.total_tokens;
+              chat.totalTokens = createChatDescription.usage!.total_tokens;
             }
           });
         }
