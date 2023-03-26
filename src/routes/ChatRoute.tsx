@@ -313,6 +313,9 @@ export function ChatRoute() {
                   submit();
                 }
                 if (event.code === "ArrowUp") {
+                  const { selectionStart, selectionEnd } = event.currentTarget;
+                  if (selectionStart !== selectionEnd) return;
+                  if (selectionStart !== 0) return;
                   event.preventDefault();
                   const nextUserMessage = findLast(
                     messages,
@@ -321,6 +324,10 @@ export function ChatRoute() {
                   setContent(nextUserMessage?.content ?? "");
                 }
                 if (event.code === "ArrowDown") {
+                  const { selectionStart, selectionEnd } = event.currentTarget;
+                  if (selectionStart !== selectionEnd) return;
+                  if (selectionStart !== event.currentTarget.value.length)
+                    return;
                   event.preventDefault();
                   const lastUserMessage = findLast(
                     messages,
