@@ -68,19 +68,29 @@ export function ChatRoute() {
     if (submitting) return;
 
     if (!chatId) {
+      //   notifications.show({
+      //     title: "Error",
+      //     color: "red",
+      //     message: "chatId is not defined. Please create a chat to get started.",
+      //   });
       notifications.show({
-        title: "Error",
+        title: "错误",
         color: "red",
-        message: "chatId is not defined. Please create a chat to get started.",
+        message: "chatId 不存在, 你需要新建一个对话.",
       });
       return;
     }
 
     if (!apiKey) {
+      //   notifications.show({
+      //     title: "Error",
+      //     color: "red",
+      //     message: "OpenAI API Key is not defined. Please set your API Key",
+      //   });
       notifications.show({
-        title: "Error",
+        title: "错误",
         color: "red",
-        message: "OpenAI API Key is not defined. Please set your API Key",
+        message: "OpenAI API Key 未设置. 请设置 API Key",
       });
       return;
     }
@@ -129,7 +139,7 @@ export function ChatRoute() {
         createdAt: new Date(),
       });
 
-      if (chat?.description === "New Chat") {
+      if (chat?.description === "新对话") {
         const messages = await db.messages
           .where({ chatId })
           .sortBy("createdAt");
@@ -142,18 +152,22 @@ export function ChatRoute() {
             role: message.role,
             content: message.content,
           })),
-          {
+        //   {
+        //     role: "user",
+        //     content:
+        //       "What would be a short and relevant title for this chat ? You must strictly answer with only the title, no other text is allowed.",
+        //   },
+        {
             role: "user",
-            content:
-              "What would be a short and relevant title for this chat ? You must strictly answer with only the title, no other text is allowed.",
-          },
+            content: "这次聊天的一个简短和相关的标题是什么? 您必须只使用标题严格回答, 不允许使用其他文本."
+        }
         ]);
         const chatDescription =
           createChatDescription.choices[0].message?.content;
 
         if (createChatDescription.usage) {
           await db.chats.where({ id: chatId }).modify((chat) => {
-            chat.description = chatDescription ?? "New Chat";
+            chat.description = chatDescription ?? "新对话";
             if (chat.totalTokens) {
               chat.totalTokens += createChatDescription.usage!.total_tokens;
             } else {
@@ -164,16 +178,21 @@ export function ChatRoute() {
       }
     } catch (error: any) {
       if (error.toJSON().message === "Network Error") {
+        // notifications.show({
+        //   title: "Error",
+        //   color: "red",
+        //   message: "No internet connection.",
+        // });
         notifications.show({
-          title: "Error",
+          title: "错误",
           color: "red",
-          message: "No internet connection.",
+          message: "无网络.",
         });
       }
       const message = error.response?.data?.error?.message;
       if (message) {
         notifications.show({
-          title: "Error",
+          title: "错误",
           color: "red",
           message,
         });
@@ -233,7 +252,8 @@ export function ChatRoute() {
                 value={writingCharacter}
                 onChange={setWritingCharacter}
                 data={writingCharacters}
-                placeholder="Character"
+                // placeholder="Character"
+                placeholder="人设"
                 variant="filled"
                 searchable
                 clearable
@@ -243,7 +263,8 @@ export function ChatRoute() {
                 value={writingTone}
                 onChange={setWritingTone}
                 data={writingTones}
-                placeholder="Tone"
+                // placeholder="Tone"
+                placeholder="语气"
                 variant="filled"
                 searchable
                 clearable
@@ -253,7 +274,8 @@ export function ChatRoute() {
                 value={writingStyle}
                 onChange={setWritingStyle}
                 data={writingStyles}
-                placeholder="Style"
+                // placeholder="Style"
+                placeholder="风格"
                 variant="filled"
                 searchable
                 clearable
@@ -263,7 +285,8 @@ export function ChatRoute() {
                 value={writingFormat}
                 onChange={setWritingFormat}
                 data={writingFormats}
-                placeholder="Format"
+                // placeholder="Format"
+                placeholder="格式"
                 variant="filled"
                 searchable
                 clearable
@@ -275,7 +298,8 @@ export function ChatRoute() {
             <Textarea
               key={chatId}
               sx={{ flex: 1 }}
-              placeholder="Your message here..."
+              //   placeholder="Your message here..."
+              placeholder="输入你的提示词..."
               autosize
               autoFocus
               disabled={submitting}

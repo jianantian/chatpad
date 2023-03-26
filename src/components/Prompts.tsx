@@ -80,7 +80,8 @@ export function Prompts({
             </Text>
           </Box>
           <Group spacing="none">
-            <Tooltip label="New Chat From Prompt">
+            {/* <Tooltip label="New Chat From Prompt"> */}
+            <Tooltip label="从提示词创建对话">
               <ActionIcon
                 size="lg"
                 onClick={async () => {
@@ -88,7 +89,7 @@ export function Prompts({
                   const id = nanoid();
                   await db.chats.add({
                     id,
-                    description: "New Chat",
+                    description: "新对话",
                     totalTokens: 0,
                     createdAt: new Date(),
                   });

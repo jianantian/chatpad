@@ -33,7 +33,8 @@ export function IndexRoute() {
             <Logo style={{ maxWidth: 240 }} />
           </Text>
           <Text mt={4} size="xl">
-            Just another ChatGPT user-interface!
+            {/* Just another ChatGPT user-interface! */}
+            我还有很多事要告诉你们, 可是你们现在不能领会
           </Text>
           <SimpleGrid
             mt={50}

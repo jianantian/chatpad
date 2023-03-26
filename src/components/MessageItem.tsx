@@ -24,8 +24,9 @@ import { ScrollIntoView } from "./ScrollIntoView";
 export function MessageItem({ message }: { message: Message }) {
   const clipboard = useClipboard({ timeout: 500 });
   const wordCount = useMemo(() => {
-    var matches = message.content.match(/[\w\d\’\'-\(\)]+/gi);
-    return matches ? matches.length : 0;
+    const eng_match_count = (message.content.match(/[\w\d\’\'-\(\)]+/gi) || []).length;
+    const chn_match_count = (message.content.match(/[\u4e00-\u9fff]/gi) || []).length;
+    return eng_match_count + chn_match_count;
   }, [message.content]);
 
   return (
@@ -55,7 +56,8 @@ export function MessageItem({ message }: { message: Message }) {
                       <CopyButton value={String(props.children)}>
                         {({ copied, copy }) => (
                           <Tooltip
-                            label={copied ? "Copied" : "Copy"}
+                            // label={copied ? "Copied" : "Copy"}
+                            label={copied ? "已复制" : "复制"}
                             position="left"
                           >
                             <ActionIcon
@@ -74,7 +76,7 @@ export function MessageItem({ message }: { message: Message }) {
             {message.role === "assistant" && (
               <Box>
                 <Text size="sm" color="dimmed">
-                  {wordCount} words
+                  {wordCount} 字
                 </Text>
               </Box>
             )}
@@ -83,7 +85,7 @@ export function MessageItem({ message }: { message: Message }) {
             <CreatePromptModal content={message.content} />
             <CopyButton value={message.content}>
               {({ copied, copy }) => (
-                <Tooltip label={copied ? "Copied" : "Copy"} position="left">
+                <Tooltip label={copied ? "已复制" : "复制"} position="left">
                   <ActionIcon onClick={copy}>
                     <IconCopy opacity={0.5} size={20} />
                   </ActionIcon>

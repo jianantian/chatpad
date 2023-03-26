@@ -15,7 +15,7 @@ export const availableModels = [
   },
 ];
 
-export const writingCharacters = [
+export const writingCharactersEng = [
   {
     label: "Standup Comedian",
     value:
@@ -143,7 +143,110 @@ export const writingCharacters = [
   },
 ];
 
-export const writingTones = [
+export const writingCharacters = [
+  {
+    label: "脱口秀演员",
+    value: "通过讲笑话和幽默故事来娱乐观众的表演者。",
+  },
+  {
+    label: "生活教练",
+    value: "帮助个人确定和实现个人和职业目标的专业人士。",
+  },
+  {
+    label: "职业顾问",
+    value: "帮助个人探索和选择职业、开发就业搜索策略并提高工作表现的专业人士。",
+  },
+  {
+    label: "营养师",
+    value: "专门研究营养及其对身体的影响的健康专业人士。",
+  },
+  {
+    label: "产品经理",
+    value: "负责监督公司产品的开发和市场营销的专业人士。",
+  },
+  {
+    label: "私人教练",
+    value: "与个人合作开发个性化的运动计划，提高整体健康和体能的健身专业人士。",
+  },
+  {
+    label: "生活技巧专家",
+    value: "使用非传统方法解决问题，提高日常生活中的生产力的人。",
+  },
+  {
+    label: "旅游顾问",
+    value: "帮助个人规划和预订旅行安排的专业人士。",
+  },
+  {
+    label: "正念教练",
+    value: "帮助个人发展正念练习，减少压力，改善健康的专业人士。",
+  },
+  {
+    label: "理财顾问",
+    value: "提供财务规划、投资策略和退休规划的指导和建议的专业人士。",
+  },
+  {
+    label: "语言辅导员",
+    value: "帮助个人学习和提高语言技能的教师。",
+  },
+  {
+    label: "旅游指南",
+    value: "领导旅游团队并提供有关当地景点和文化的信息的专业人士。",
+  },
+  {
+    label: "营销专家",
+    value: "制定和实施营销策略以促销产品和服务的专业人士。",
+  },
+  {
+    label: "软件开发人员",
+    value: "设计、开发和维护软件应用和系统的专业人士。",
+  },
+  {
+    label: "约会教练",
+    value: "帮助个人提高约会和恋爱技巧的专业人士。",
+  },
+  {
+    label: "DIY 专家",
+    value: "在家中完成各种自己动手的项目的熟练人士。",
+  },
+  {
+    label: "记者",
+    value: "调查和报道时事新闻的专业人士。",
+  },
+  {
+    label: "科技作家",
+    value: "为各种受众撰写有关技术和相关主题的专业人士。",
+  },
+  {
+    label: "专业厨师",
+    value: "熟练的厨艺专业人士，负责准备餐食和管理厨房运营。",
+  },
+  {
+    label: "专业销售人员",
+    value: "向企业和消费者销售产品和服务的专业人士。",
+  },
+  {
+    label: "初创科技律师",
+    value: "专门为初创科技公司提供法律咨询和服务的法律专业人士。",
+  },
+  {
+    label: "平面设计师",
+    value: "设计标识、宣传册和网站等视觉资料的专业人士。",
+  },
+  {
+    label: "学术研究员",
+    value: "在特定学术领域进行研究并出版学术著作的专业人士。",
+  },
+  {
+    label: "客户支持代理",
+    value: "提供帮助和支持给遇到问题或疑问的公司产品或服务用户的专业人士。",
+  },
+  {
+    label: "人力资源顾问",
+    value: "为组织提供人力资源管理和战略方面的指导和建议的专业人士。",
+  },
+];
+
+export const writingTonesEng = [
   "Assertive",
   "Authoritative",
   "Casual",
@@ -171,7 +274,35 @@ export const writingTones = [
   "Witty",
 ];
 
-export const writingStyles = [
+export const writingTones = [
+  "有决断力的",
+  "有权威性的",
+  "随意的",
+  "自信的",
+  "居高临下的",
+  "随意交谈的",
+  "圆滑的",
+  "直接的",
+  "雄辩的",
+  "正式的",
+  "友好的",
+  "幽默的",
+  "提供信息的",
+  "鼓舞人心的",
+  "强烈的",
+  "易怒的",
+  "开玩笑的",
+  "有礼貌的",
+  "讽刺的",
+  "真诚的",
+  "抚慰的",
+  "严厉的",
+  "有同情心的",
+  "圆滑的",
+  "风趣的",
+];
+
+export const writingStylesEng = [
   "Academic",
   "Analytical",
   "Argumentative",
@@ -192,9 +323,48 @@ export const writingStyles = [
   "Technical",
 ];
 
-export const writingFormats = [
+export const writingStyles = [
+  "学术的",
+  "分析的",
+  "有争议的",
+  "随意交谈的",
+  "有创意的",
+  "批判性的",
+  "描述性的",
+  "解释性的",
+  "提供信息的",
+  "指导性的",
+  "调查性的",
+  "新闻般的",
+  "隐喻的",
+  "叙述性的",
+  "有说服力的",
+  "诗意的",
+  "讽刺的",
+  "技术性的",
+];
+export const writingFormatsEng = [
   { value: "Answer as concise as possible", label: "Concise" },
   { value: "Think step-by-step", label: "Step-by-step" },
   { value: "Answer in painstakingly detail", label: "Extreme Detail" },
   { value: "Explain like I'm five", label: "Explain Like I'm Five" },
+];
+
+export const writingFormats = [
+  {
+    value: "尽可能简洁地回答问题",
+    label: "简明扼要",
+  },
+  {
+    value: "分步骤思考回答问题",
+    label: "循序渐进",
+  },
+  {
+    value: "详细地回答问题",
+    label: "极度详细",
+  },
+  {
+    value: "像我五岁一样解释",
+    label: "我只是一个孩子",
+  },
 ];

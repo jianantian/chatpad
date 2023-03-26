@@ -14,17 +14,20 @@ export function DeleteChatsModal({ onOpen }: { onOpen: () => void }) {
         color="red"
         leftIcon={<IconTrash size={20} />}
       >
-        Delete Chats
+        {/* Delete Chats */}
+        删除对话
       </Button>
       <Modal
         opened={opened}
         onClose={close}
-        title="Delete Chats"
+        // title="Delete Chats"
+        title="删除对话"
         size="md"
         withinPortal
       >
         <Stack>
-          <Text size="sm">Are you sure you want to delete your chats?</Text>
+          {/* <Text size="sm">Are you sure you want to delete your chats?</Text> */}
+          <Text size="sm">请您确认是否要删除所有对话?</Text>
           <Button
             onClick={async () => {
               await db.chats.clear();
@@ -34,7 +37,8 @@ export function DeleteChatsModal({ onOpen }: { onOpen: () => void }) {
             }}
             color="red"
           >
-            Delete
+            {/* Delete */}
+            删除
           </Button>
         </Stack>
       </Modal>

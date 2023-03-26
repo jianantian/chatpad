@@ -55,10 +55,12 @@ export function Chats({ search }: { search: string }) {
             </Menu.Target>
             <Menu.Dropdown>
               <EditChatModal chat={chat}>
-                <Menu.Item>Edit</Menu.Item>
+                {/* <Menu.Item>Edit</Menu.Item> */}
+                <Menu.Item>修改</Menu.Item>
               </EditChatModal>
               <DeleteChatModal chat={chat}>
-                <Menu.Item>Delete</Menu.Item>
+                {/* <Menu.Item>Delete</Menu.Item> */}
+                <Menu.Item>删除</Menu.Item>
               </DeleteChatModal>
             </Menu.Dropdown>
           </Menu>

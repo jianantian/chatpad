@@ -50,7 +50,8 @@ declare global {
 export function Layout() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-  const [tab, setTab] = useState<"Chats" | "Prompts">("Chats");
+  //   const [tab, setTab] = useState<"Chats" | "Prompts">("Chats");
+  const [tab, setTab] = useState<"对话" | "提示词">("对话");
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const navigate = useNavigate();
   const router = useRouter();
@@ -125,10 +126,12 @@ export function Layout() {
               fullWidth
               value={tab}
               onChange={(value) => setTab(value as typeof tab)}
-              data={["Chats", "Prompts"]}
+              //   data={["Chats", "Prompts"]}
+              data={["对话", "提示词"]}
             />
             <Box sx={{ padding: 4 }}>
-              {tab === "Chats" && (
+              {/* {tab === "Chats" && ( */}
+              {tab === "对话" && (
                 <Button
                   fullWidth
                   leftIcon={<IconPlus size={20} />}
@@ -136,7 +139,8 @@ export function Layout() {
                     const id = nanoid();
                     db.chats.add({
                       id,
-                      description: "New Chat",
+                        // description: "New Chat",
+                      description: "新对话",
                       totalTokens: 0,
                       createdAt: new Date(),
                     });
@@ -147,7 +151,8 @@ export function Layout() {
                   新对话
                 </Button>
               )}
-              {tab === "Prompts" && <CreatePromptModal />}
+              {/* {tab === "Prompts" && <CreatePromptModal />} */}
+              {tab === "提示词" && <CreatePromptModal />}
             </Box>
           </Navbar.Section>
           <Navbar.Section
@@ -163,7 +168,8 @@ export function Layout() {
             <TextInput
               variant="unstyled"
               radius={0}
-              placeholder="Search"
+              //   placeholder="Search"
+              placeholder="搜索"
               value={search}
               onChange={(event) =>
                 setSearch(event.currentTarget.value.toLowerCase())
@@ -180,15 +186,16 @@ export function Layout() {
             />
           </Navbar.Section>
           <Navbar.Section grow component={ScrollArea}>
-            {tab === "Chats" && <Chats search={search} />}
-            {tab === "Prompts" && (
-              <Prompts search={search} onPlay={() => setTab("Chats")} />
+            {tab === "对话" && <Chats search={search} />}
+            {tab === "提示词" && (
+              <Prompts search={search} onPlay={() => setTab("对话")} />
             )}
           </Navbar.Section>
           <Navbar.Section sx={{ borderTop: border }} p="xs">
             <Center>
               <Tooltip
-                label={colorScheme === "dark" ? "Light Mode" : "Dark Mode"}
+                // label={colorScheme === "dark" ? "Light Mode" : "Dark Mode"}
+                label={colorScheme === "dark" ? "浅色" : "深色"}
               >
                 <ActionIcon
                   sx={{ flex: 1 }}
@@ -203,14 +210,16 @@ export function Layout() {
                 </ActionIcon>
               </Tooltip>
               <SettingsModal>
-                <Tooltip label="Settings">
+                {/* <Tooltip label="Settings"> */}
+                <Tooltip label="设置">
                   <ActionIcon sx={{ flex: 1 }} size="xl">
                     <IconSettings size={20} />
                   </ActionIcon>
                 </Tooltip>
               </SettingsModal>
               <DatabaseModal>
-                <Tooltip label="Database">
+                {/* <Tooltip label="Database"> */}
+                <Tooltip label="数据库">
                   <ActionIcon sx={{ flex: 1 }} size="xl">
                     <IconDatabase size={20} />
                   </ActionIcon>
@@ -272,10 +281,11 @@ export function Layout() {
                 height: "100%",
               }}
             >
-              {`${chat.description} - ${chat.totalTokens ?? 0} tokens ~ $${(
+              {/* {`${chat.description} - ${chat.totalTokens ?? 0} tokens ~ $${(
                 ((chat.totalTokens ?? 0) * 0.002) /
                 1000
-              ).toFixed(5)}`}
+              ).toFixed(5)}`} */}
+              {`${chat.description} - ${chat.totalTokens ?? 0} 字`}
             </div>
           </Header>
         ) : undefined

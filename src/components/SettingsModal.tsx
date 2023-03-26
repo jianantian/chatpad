@@ -41,7 +41,8 @@ export function SettingsModal({ children }: { children: ReactElement }) {
   return (
     <>
       {cloneElement(children, { onClick: open })}
-      <Modal opened={opened} onClose={close} title="Settings" size="lg">
+      {/* <Modal opened={opened} onClose={close} title="Settings" size="lg"> */}
+      <Modal opened={opened} onClose={close} title="设置" size="lg">
         <Stack>
           <form
             onSubmit={async (event) => {
@@ -60,7 +61,8 @@ export function SettingsModal({ children }: { children: ReactElement }) {
               } catch (error: any) {
                 if (error.toJSON().message === "Network Error") {
                   notifications.show({
-                    title: "Error",
+                    // title: "Error",
+                    title: "错误",
                     color: "red",
                     message: "网络连接错误.",
                   });
@@ -68,7 +70,8 @@ export function SettingsModal({ children }: { children: ReactElement }) {
                 const message = error.response?.data?.error?.message;
                 if (message) {
                   notifications.show({
-                    title: "Error",
+                    // title: "Error",
+                    title: "错误",
                     color: "red",
                     message,
                   });
@@ -88,7 +91,8 @@ export function SettingsModal({ children }: { children: ReactElement }) {
                 formNoValidate
               />
               <Button type="submit" loading={submitting}>
-                Save
+                {/* Save */}
+                保存
               </Button>
             </Flex>
           </form>
@@ -99,19 +103,22 @@ export function SettingsModal({ children }: { children: ReactElement }) {
                   href="https://platform.openai.com/account/api-keys"
                   target="_blank"
                 >
-                  Get your OpenAI API key
+                  {/* Get your OpenAI API key */}
+                  获取你的 OpenAI API Key
                 </Anchor>
               </Text>
             </List.Item>
             <List.Item>
               <Text size="sm" color="dimmed">
-                The API Key is stored locally on your browser and never sent
-                anywhere else.
+                {/* The API Key is stored locally on your browser and never sent
+                anywhere else. */}
+                你的 API Key 存储在本地而不会上传到其它任何地方.
               </Text>
             </List.Item>
           </List>
           <Select
-            label="OpenAI Model"
+            // label="OpenAI Model"
+            label="OpenAI 模型"
             value={model}
             onChange={(value) => {
               db.settings.update("general", {
@@ -121,10 +128,10 @@ export function SettingsModal({ children }: { children: ReactElement }) {
             withinPortal
             data={availableModels}
           />
-          <Alert color="orange" title="Warning">
-            The displayed cost was not updated yet to reflect the costs for each
-            model. Right now it will always show the cost for GPT-3.5.
-          </Alert>
+          {/* <Alert color="orange" title="Warning"> */}
+            {/* The displayed cost was not updated yet to reflect the costs for each
+            model. Right now it will always show the cost for GPT-3.5. */}
+          {/* </Alert> */}
         </Stack>
       </Modal>
     </>

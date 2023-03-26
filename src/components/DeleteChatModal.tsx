@@ -29,7 +29,8 @@ export function DeleteChatModal({
   return (
     <>
       {cloneElement(children, { onClick: open })}
-      <Modal opened={opened} onClose={close} title="Delete Chat">
+      {/* <Modal opened={opened} onClose={close} title="Delete Chat"> */}
+      <Modal opened={opened} onClose={close} title="删除对话">
         <form
           onSubmit={async (event) => {
             try {
@@ -43,23 +44,36 @@ export function DeleteChatModal({
               close();
 
               notifications.show({
-                title: "Deleted",
-                message: "Chat deleted.",
+                // title: "Deleted",
+                // message: "Chat deleted.",
+                title: "已删除",
+                message: "对话已删除.",
               });
             } catch (error: any) {
               if (error.toJSON().message === "Network Error") {
+                // notifications.show({
+                //   title: "Error",
+                //   color: "red",
+                //   message: "No internet connection.",
+                // });
                 notifications.show({
-                  title: "Error",
-                  color: "red",
-                  message: "No internet connection.",
-                });
+                    title: "错误",
+                    color: "red",
+                    message: "无网络.",
+                  });
               } else {
+                // notifications.show({
+                //   title: "Error",
+                //   color: "red",
+                //   message:
+                //     "Can't remove chat. Please refresh the page and try again.",
+                // });
                 notifications.show({
-                  title: "Error",
-                  color: "red",
-                  message:
-                    "Can't remove chat. Please refresh the page and try again.",
-                });
+                    title: "错误",
+                    color: "red",
+                    message:
+                      "无法删除对话. 请刷新页面后重试.",
+                  });
               }
             } finally {
               setSubmitting(false);
@@ -67,9 +81,11 @@ export function DeleteChatModal({
           }}
         >
           <Stack>
-            <Text size="sm">Are you sure you want to delete this chat?</Text>
+            {/* <Text size="sm">Are you sure you want to delete this chat?</Text> */}
+            <Text size="sm">您是否要删除此对话?</Text>
             <Button type="submit" color="red" loading={submitting}>
-              Delete
+              {/* Delete */}
+              删除
             </Button>
           </Stack>
         </form>

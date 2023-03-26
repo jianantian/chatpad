@@ -27,7 +27,8 @@ export function DatabaseModal({ children }: { children: ReactElement }) {
       <Modal
         opened={opened}
         onClose={close}
-        title="Database"
+        // title="Database"
+        title="数据库"
         size="lg"
         withinPortal
         keepMounted
@@ -45,7 +46,8 @@ export function DatabaseModal({ children }: { children: ReactElement }) {
                 tt="uppercase"
                 fw={700}
               >
-                Chats
+                {/* Chats */}
+                对话
               </Text>
             </Card>
             <Card withBorder sx={{ flex: 1, marginLeft: -1 }}>
@@ -59,7 +61,8 @@ export function DatabaseModal({ children }: { children: ReactElement }) {
                 tt="uppercase"
                 fw={700}
               >
-                Messages
+                {/* Messages */}
+                消息
               </Text>
             </Card>
             <Card withBorder sx={{ flex: 1, marginLeft: -1 }}>
@@ -73,7 +76,8 @@ export function DatabaseModal({ children }: { children: ReactElement }) {
                 tt="uppercase"
                 fw={700}
               >
-                Prompts
+                {/* Prompts */}
+                提示词
               </Text>
             </Card>
           </Flex>
@@ -89,12 +93,15 @@ export function DatabaseModal({ children }: { children: ReactElement }) {
                   "application/json"
                 );
                 notifications.show({
-                  title: "Exporting Data",
-                  message: "Your data is being exported.",
+                //   title: "Exporting Data",
+                //   message: "Your data is being exported.",
+                title: "导出数据",
+                message: "你的数据正在导出.",
                 });
               }}
             >
-              Export Data
+              {/* Export Data */}
+              导出数据
             </Button>
             <input
               id="file-upload-btn"
@@ -110,15 +117,20 @@ export function DatabaseModal({ children }: { children: ReactElement }) {
                 })
                   .then(() => {
                     notifications.show({
-                      title: "Importing data",
-                      message: "Your data is being imported.",
+                    //   title: "Importing data",
+                    //   message: "Your data is being imported.",
+                    title: "导入数据",
+                      message: "你的数据正在导入.",
                     });
                   })
                   .catch((error) => {
                     notifications.show({
-                      title: "Error",
+                    //   title: "Error",
+                    //   color: "red",
+                    //   message: "The file you selected is invalid",
+                    title: "错误",
                       color: "red",
-                      message: "The file you selected is invalid",
+                      message: "你选择的文件读取失败.",
                     });
                   });
               }}
@@ -131,7 +143,8 @@ export function DatabaseModal({ children }: { children: ReactElement }) {
               variant="default"
               leftIcon={<IconDatabaseImport size={20} />}
             >
-              Import Data
+              {/* Import Data */}
+              导入数据
             </Button>
           </Group>
           <Group>
