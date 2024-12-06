@@ -40,6 +40,7 @@ import { DatabaseModal } from "./DatabaseModal";
 import { LogoText } from "./Logo";
 import { Prompts } from "./Prompts";
 import { SettingsModal } from "./SettingsModal";
+import { config } from "../utils/config";
 
 declare global {
   interface Window {
@@ -193,79 +194,89 @@ export function Layout() {
           </Navbar.Section>
           <Navbar.Section sx={{ borderTop: border }} p="xs">
             <Center>
-              <Tooltip
-                // label={colorScheme === "dark" ? "Light Mode" : "Dark Mode"}
-                label={colorScheme === "dark" ? "浅色" : "深色"}
-              >
-                <ActionIcon
-                  sx={{ flex: 1 }}
-                  size="xl"
-                  onClick={() => toggleColorScheme()}
+              {config.allowDarkModeToggle && (
+                <Tooltip
+//                   label={colorScheme === "dark" ? "Light Mode" : "Dark Mode"}
+                  label={colorScheme === "dark" ? "浅色" : "深色"}
                 >
-                  {colorScheme === "dark" ? (
-                    <IconSunHigh size={20} />
-                  ) : (
-                    <IconMoonStars size={20} />
-                  )}
-                </ActionIcon>
-              </Tooltip>
-              <SettingsModal>
-                {/* <Tooltip label="Settings"> */}
-                <Tooltip label="设置">
-                  <ActionIcon sx={{ flex: 1 }} size="xl">
-                    <IconSettings size={20} />
+                  <ActionIcon
+                    sx={{ flex: 1 }}
+                    size="xl"
+                    onClick={() => toggleColorScheme()}
+                  >
+                    {colorScheme === "dark" ? (
+                      <IconSunHigh size={20} />
+                    ) : (
+                      <IconMoonStars size={20} />
+                    )}
                   </ActionIcon>
                 </Tooltip>
-              </SettingsModal>
-              <DatabaseModal>
-                {/* <Tooltip label="Database"> */}
-                <Tooltip label="数据库">
-                  <ActionIcon sx={{ flex: 1 }} size="xl">
-                    <IconDatabase size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              </DatabaseModal>
-              {/* <Tooltip label="Source Code">
-                <ActionIcon
-                  component="a"
-                  href="https://github.com/deiucanta/chatpad"
-                  target="_blank"
-                  sx={{ flex: 1 }}
-                  size="xl"
-                >
-                  <IconBrandGithub size={20} />
-                </ActionIcon>
-              </Tooltip> */}
-              {/* <Tooltip label="Follow on Twitter">
-                <ActionIcon
-                  component="a"
-                  href="https://twitter.com/deiucanta"
-                  target="_blank"
-                  sx={{ flex: 1 }}
-                  size="xl"
-                >
-                  <IconBrandTwitter size={20} />
-                </ActionIcon>
-              </Tooltip> */}
-              {/* <Tooltip label="Give Feedback">
-                <ActionIcon
-                  component="a"
-                  href="https://feedback.chatpad.ai"
-                  onClick={(event) => {
-                    if (window.todesktop) {
-                      event.preventDefault();
-                      window.todesktop.contents.openUrlInBrowser(
-                        "https://feedback.chatpad.ai"
-                      );
-                    }
-                  }}
-                  target="_blank"
-                  sx={{ flex: 1 }}
-                  size="xl"
-                >
-                  <IconMessage size={20} />
-                </ActionIcon>
-              </Tooltip> */}
+              )}
+              {config.allowSettingsModal && (
+                <SettingsModal>
+{/*                   <Tooltip label="Settings"> */}
+                    <Tooltip label="设置">
+                    <ActionIcon sx={{ flex: 1 }} size="xl">
+                      <IconSettings size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                </SettingsModal>
+              )}
+              {config.allowDatabaseModal && (
+                <DatabaseModal>
+{/*                   <Tooltip label="Database"> */}
+                  <Tooltip label="数据库">
+                    <ActionIcon sx={{ flex: 1 }} size="xl">
+                      <IconDatabase size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                </DatabaseModal>
+              )}
+{/*               <Tooltip label="Source Code"> */}
+{/*                 <ActionIcon */}
+{/*                   component="a" */}
+{/*                   href="https://github.com/deiucanta/chatpad" */}
+{/*                   target="_blank" */}
+{/*                   sx={{ flex: 1 }} */}
+{/*                   size="xl" */}
+{/*                 > */}
+{/*                   <IconBrandGithub size={20} /> */}
+{/*                 </ActionIcon> */}
+{/*               </Tooltip> */}
+{/*               {config.showTwitterLink && ( */}
+{/*                 <Tooltip label="Follow on Twitter"> */}
+{/*                   <ActionIcon */}
+{/*                     component="a" */}
+{/*                     href="https://twitter.com/deiucanta" */}
+{/*                     target="_blank" */}
+{/*                     sx={{ flex: 1 }} */}
+{/*                     size="xl" */}
+{/*                   > */}
+{/*                     <IconBrandTwitter size={20} /> */}
+{/*                   </ActionIcon> */}
+{/*                 </Tooltip> */}
+{/*               )} */}
+{/*               {config.showFeedbackLink && ( */}
+{/*                 <Tooltip label="Give Feedback"> */}
+{/*                   <ActionIcon */}
+{/*                     component="a" */}
+{/*                     href="https://feedback.chatpad.ai" */}
+{/*                     onClick={(event) => { */}
+{/*                       if (window.todesktop) { */}
+{/*                         event.preventDefault(); */}
+{/*                         window.todesktop.contents.openUrlInBrowser( */}
+{/*                           "https://feedback.chatpad.ai" */}
+{/*                         ); */}
+{/*                       } */}
+{/*                     }} */}
+{/*                     target="_blank" */}
+{/*                     sx={{ flex: 1 }} */}
+{/*                     size="xl" */}
+{/*                   > */}
+{/*                     <IconMessage size={20} /> */}
+{/*                   </ActionIcon> */}
+{/*                 </Tooltip> */}
+{/*               )} */}
             </Center>
           </Navbar.Section>
         </Navbar>

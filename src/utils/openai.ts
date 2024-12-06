@@ -1,39 +1,79 @@
+import { encode } from "gpt-token-utils";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
+import { OpenAIExt } from "openai-ext";
 import { db } from "../db";
 import { defaultModel } from "./constants";
-import { server, port } from "./config";
+import { server, port, config } from "./config";
 const decoder = new TextDecoder("utf-8");
 
-function getClient(apiKey: string) {
+function getClient(
+  apiKey: string,
+  apiType: string,
+  apiAuth: string,
+  basePath: string
+) {
   const configuration = new Configuration({
-    apiKey,
+    ...((apiType === "openai" ||
+      (apiType === "custom" && apiAuth === "bearer-token")) && {
+      apiKey: apiKey,
+    }),
+    ...(apiType === "custom" && { basePath: basePath }),
   });
   return new OpenAIApi(configuration);
 }
 
-export async function createChatCompletionImpl(
+export async function createStreamChatCompletion(
   apiKey: string,
-  messages: ChatCompletionRequestMessage[]
+  messages: ChatCompletionRequestMessage[],
+  chatId: string,
+  messageId: string
 ) {
   const settings = await db.settings.get("general");
-  const model = settings?.openAiModel ?? defaultModel;
+  const model = settings?.openAiModel ?? config.defaultModel;
 
-  const client = getClient(apiKey);
-  return client.createChatCompletion({
-    model,
-    stream: false,
-    messages,
+  return OpenAIExt.streamClientChatCompletion(
+    {
+      model,
+      messages,
+    },
+    {
+      apiKey: apiKey,
+      handler: {
+        onContent(content, isFinal, stream) {
+          setStreamContent(messageId, content, isFinal);
+          if (isFinal) {
+            setTotalTokens(chatId, content);
+          }
+        },
+        onDone(stream) {},
+        onError(error, stream) {
+          console.error(error);
+        },
+      },
+    }
+  );
+}
+
+function setStreamContent(
+  messageId: string,
+  content: string,
+  isFinal: boolean
+) {
+  content = isFinal ? content : content + "█";
+  db.messages.update(messageId, { content: content });
+}
+
+function setTotalTokens(chatId: string, content: string) {
+  let total_tokens = encode(content).length;
+  db.chats.where({ id: chatId }).modify((chat) => {
+    if (chat.totalTokens) {
+      chat.totalTokens += total_tokens;
+    } else {
+      chat.totalTokens = total_tokens;
+    }
   });
 }
 
-export async function checkOpenAIKeyImpl(apiKey: string) {
-  return createChatCompletionImpl(apiKey, [
-    {
-      role: "user",
-      content: "hello",
-    },
-  ]);
-}
 
 export async function createChatCompletion(
   apiKey: string,
@@ -65,59 +105,6 @@ export async function createChatCompletion(
   }
 }
 
-// export async function createChatCompletion(
-//   apiKey: string,
-//   messages: ChatCompletionRequestMessage[]
-// ) {
-//   let result = {
-//     data: {
-//       choices: [{ message: { content: "" } }],
-//       usage: { total_tokens: 0 },
-//     },
-//   };
-//   const { body, status } = await createChatCompletionBase(apiKey, messages);
-//   if (body) {
-//     const reader = body.getReader();
-//     result = await loadChatResponse(reader, status);
-//   }
-//   return result;
-// }
-
-// const loadChatResponse = async (
-//   reader: ReadableStreamDefaultReader<Uint8Array>,
-//   status: number
-// ) => {
-//   const regex = /({.*?]})/g;
-//   const { done, value } = await reader.read();
-//   const decodeText: string = decoder.decode(value);
-//   decodeText.replace;
-//   const result = JSON.parse(decodeText);
-//   return result;
-// };
-
-// const readChatStream = async (
-//   reader: ReadableStreamDefaultReader<Uint8Array>,
-//   messageList: ChatCompletionRequestMessage[],
-//   status: number
-// ) => {
-//   const regex = /({.*?]})/g;
-//   const { done, value } = await reader.read();
-//   if (done) {
-//     reader.closed;
-//     return;
-//   }
-//   const decodeText = decoder.decode(value);
-//   const dataList = status === 200 ? decodeText.match(regex) : [decodeText];
-//   dataList?.forEach((v: any) => {
-//     const json = JSON.parse(v);
-//     console.log(json);
-//     let content =
-//       status === 200 ? json.choices[0].delta.content : json.error.message;
-//     content = content === undefined ? "" : content;
-//     messageList[messageList.length - 1].content += content;
-//   });
-//   await readChatStream(reader, messageList, status);
-// };
 
 export async function checkOpenAIKey(apiKey: string) {
   return true;
